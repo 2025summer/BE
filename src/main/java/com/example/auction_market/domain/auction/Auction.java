@@ -2,11 +2,16 @@ package com.example.auction_market.domain.auction;
 
 import com.example.auction_market.domain.product.Product;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "auction")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Auction {
 
     @Id

@@ -1,11 +1,16 @@
 package com.example.auction_market.domain.product;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "product_image")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ProductImage {
 
     @Id

@@ -1,8 +1,7 @@
 package com.example.auction_market.domain.member;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,7 +9,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "member")
 @Getter
-@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Member {
 
     @Id

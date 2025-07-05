@@ -1,4 +1,4 @@
 package com.example.auction_market.application;
 
-public class auction {
+public class Auction {
 }

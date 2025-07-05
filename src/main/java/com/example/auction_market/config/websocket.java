@@ -1,4 +1,4 @@
 package com.example.auction_market.config;
 
-public class websocket {
+public class Websocket {
 }

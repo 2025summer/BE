@@ -11,3 +11,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  swagger-ui:
+    path: /swagger-ui.html
+    display-request-duration: true
+  api-docs:
+    path: /v3/api-docs

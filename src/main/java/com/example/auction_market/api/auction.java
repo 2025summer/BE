@@ -1,4 +1,4 @@
 package com.example.auction_market.api;
 
-public class auction {
+public class Auction {
 }

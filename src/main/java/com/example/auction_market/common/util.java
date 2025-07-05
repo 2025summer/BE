@@ -1,4 +1,4 @@
 package com.example.auction_market.common;
 
-public class util {
+public class Util {
 }

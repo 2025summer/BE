@@ -3,11 +3,16 @@ package com.example.auction_market.domain.bid;
 import com.example.auction_market.domain.auction.Auction;
 import com.example.auction_market.domain.member.Member;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "bid")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Bid {
 
     @Id

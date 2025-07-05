@@ -3,11 +3,17 @@ package com.example.auction_market.domain.product;
 import com.example.auction_market.domain.member.Member;
 import com.example.auction_market.domain.product.*;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Product {
 
     @Id
@@ -32,7 +38,7 @@ public class Product {
     private Member highestBidder;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductImage> images = new List<ProductImage>();
+    private List<ProductImage> images = new ArrayList<>();
 
     // 생성자, getter/setter
 }

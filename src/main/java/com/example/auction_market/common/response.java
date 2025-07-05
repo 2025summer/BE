@@ -1,4 +1,4 @@
 package com.example.auction_market.common;
 
-public class response {
+public class Response {
 }

@@ -1,4 +1,4 @@
 package com.example.auction_market.config;
 
-public class redis {
+public class Redis {
 }

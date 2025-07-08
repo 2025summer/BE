@@ -29,7 +29,7 @@ public class Member {
 
     private String phoneNumber;
 
-    private LocalDate birthDate;
+    private String birthDate;
 
     private LocalDateTime createdAt;
 

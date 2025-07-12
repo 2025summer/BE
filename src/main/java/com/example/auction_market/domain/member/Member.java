@@ -1,5 +1,6 @@
 package com.example.auction_market.domain.member;
 
+import com.example.auction_market.domain.product.ProductImage;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,5 +38,8 @@ public class Member {
     public enum Role {
         USER, ADMIN
     }
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Address> images = new ArrayList<>();
 
 }

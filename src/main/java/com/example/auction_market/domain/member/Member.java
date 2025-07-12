@@ -3,8 +3,9 @@ package com.example.auction_market.domain.member;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "member")
@@ -24,12 +25,12 @@ public class Member {
 
     private String password;
 
+    private String nickname;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
     private String phoneNumber;
-
-    private String birthDate;
 
     private LocalDateTime createdAt;
 

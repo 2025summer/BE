@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -31,13 +32,12 @@ public class MemberService {
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(request.getPassword())
-                .birthDate(request.getBirthDate())
+                .nickname(UUID.randomUUID().toString().substring(0, 8))
                 .phoneNumber(request.getPhoneNumber())
                 .createdAt(LocalDateTime.now())
                 .role(Member.Role.USER)
                 .build();
 
-        System.out.println(member);
         memberRepository.save(member);
     }
 

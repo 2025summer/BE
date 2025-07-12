@@ -1,6 +1,8 @@
 package com.example.auction_market.application;
 
 import com.example.auction_market.common.token.JwtUtil;
+import com.example.auction_market.domain.member.Address;
+import com.example.auction_market.domain.member.AddressRepository;
 import com.example.auction_market.domain.member.Member;
 import com.example.auction_market.domain.member.MemberRepository;
 import com.example.auction_market.dto.*;
@@ -18,6 +20,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final JwtUtil jwtUtil;
+    private final AddressRepository addressRepository;
 
     public void signup(SignUpRequest request) {
         if (memberRepository.existsByEmail(request.getEmail())) {
@@ -38,7 +41,15 @@ public class MemberService {
                 .role(Member.Role.USER)
                 .build();
 
+        Address address = Address.builder()
+                .member(member)
+                .zipCode(request.getZipcode())
+                .address(request.getAddress())
+                .detailAddress(request.getDetailAddress())
+                .build();
+
         memberRepository.save(member);
+        addressRepository.save(address);
     }
 
     public SignInResponse signin(SignInRequest request) {

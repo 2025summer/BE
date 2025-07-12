@@ -1,7 +1,6 @@
 package com.example.auction_market.domain.product;
 
 import com.example.auction_market.domain.member.Member;
-import com.example.auction_market.domain.product.*;
 import jakarta.persistence.*;
 import lombok.*;
 

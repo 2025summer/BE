@@ -16,7 +16,9 @@ public class SignUpRequest {
     private String email;
     private String password;
     private String confirmPassword;
-    private String birthDate;
     private String phoneNumber;
+    private String zipcode;
+    private String address;
+    private String detailAddress;
 }
 

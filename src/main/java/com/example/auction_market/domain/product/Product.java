@@ -5,7 +5,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static java.time.chrono.JapaneseEra.values;
 
 @Entity
 @Table(name = "product")
@@ -25,8 +28,6 @@ public class Product {
 
     private String title;
 
-    private String name;
-
     private int bidCount;
 
     @Enumerated(EnumType.STRING)
@@ -37,7 +38,7 @@ public class Product {
 
     private Long highestPrice;
 
-    private Long butNowPrice;
+    private Long buyNowPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "highest_bidder_id")
@@ -57,4 +58,5 @@ public class Product {
         ETC,                  // 기타
         WISHLIST              // 찜 목록
     }
+
 }

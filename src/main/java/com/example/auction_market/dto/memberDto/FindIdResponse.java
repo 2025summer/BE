@@ -1,4 +1,4 @@
-package com.example.auction_market.dto;
+package com.example.auction_market.dto.memberDto;
 
 
 import lombok.*;

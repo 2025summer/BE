@@ -5,7 +5,7 @@ import com.example.auction_market.domain.member.Address;
 import com.example.auction_market.domain.member.AddressRepository;
 import com.example.auction_market.domain.member.Member;
 import com.example.auction_market.domain.member.MemberRepository;
-import com.example.auction_market.dto.*;
+import com.example.auction_market.dto.memberDto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

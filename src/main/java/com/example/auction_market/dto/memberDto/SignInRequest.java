@@ -1,4 +1,4 @@
-package com.example.auction_market.dto;
+package com.example.auction_market.dto.memberDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class ChangePasswordRequest {
+@AllArgsConstructor
+public class SignInRequest {
     private String email;
     private String password;
-    private String newPassword;
-    private String confirmNewPassword;
 }

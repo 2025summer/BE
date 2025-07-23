@@ -2,7 +2,7 @@ package com.example.auction_market.api;
 
 import com.example.auction_market.application.MemberService;
 import com.example.auction_market.domain.member.MemberRepository;
-import com.example.auction_market.dto.*;
+import com.example.auction_market.dto.memberDto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

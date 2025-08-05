@@ -7,6 +7,7 @@ import com.example.auction_market.domain.member.Member;
 import com.example.auction_market.domain.member.MemberRepository;
 import com.example.auction_market.dto.memberDto.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,8 +53,9 @@ public class MemberService {
         addressRepository.save(address);
     }
 
-    public SignInResponse signin(SignInRequest request) {
-        Member member = memberRepository.findByEmail(request.getEmail());
+    public ResponseEntity<SignInResponse> signin(SignInRequest request) {
+        Member member = memberRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
 
         if (!memberRepository.existsByEmail(request.getEmail())) {
             throw new  IllegalArgumentException("존재하지 않는 이메일입니다.");
@@ -70,7 +72,7 @@ public class MemberService {
                 .role(SignInResponse.Role.USER)
                 .build();
 
-        return signInResponse;
+        return ResponseEntity.ok(signInResponse);
     }
 
     public FindIdResponse findId(FindIdRequest request) {
@@ -84,7 +86,8 @@ public class MemberService {
     }
 
     public void changePassword(ChangePasswordRequest request) {
-        Member member = memberRepository.findByEmail(request.getEmail());
+        Member member = memberRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
 
         if(!member.getPassword().equals(request.getPassword())) {
             throw new  IllegalArgumentException("기존 비밀번호와 일치하지 않습니다. 다시 입력해주세요");

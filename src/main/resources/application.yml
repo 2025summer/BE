@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -16,3 +16,13 @@ spring:
     display-request-duration: true
   api-docs:
     path: /v3/api-docs
+
+cloudflare:
+  r2:
+    account-id: YOUR_ACCOUNT_ID   # R2 대시보드에서 확인
+    access-key: YOUR_ACCESS_KEY   # API 토큰의 Access Key
+    secret-key: YOUR_SECRET_KEY   # API 토큰의 Secret Key
+    bucket-name: auction-market-images # 만든 버킷 이름
+    endpoint: https://a865b0345f58813fe6087dc80dac145a.r2.cloudflarestorage.com
+
+

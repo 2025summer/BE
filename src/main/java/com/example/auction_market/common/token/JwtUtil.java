@@ -41,4 +41,12 @@ public class JwtUtil {
             return false;
         }
     }
+
+    public boolean isValid(String token) {
+        return validateToken(token);
+    }
+
+    public String extractEmail(String token) {
+        return getClaims(token).getSubject();
+    }
 }

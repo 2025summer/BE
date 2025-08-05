@@ -7,11 +7,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 public interface MemberRepository extends JpaRepository<Member, Long> {
     boolean existsByEmail(String email);
     Member findByUsername(String username);
 
-    Member findByEmail(String email);
+    Optional<Member> findByEmail(String email);
 
     Member findByUsernameAndPhoneNumber(String username, String phoneNumber);
 

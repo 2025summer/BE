@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductUploadRequest {
-    private String category;
     private String productTitle;
     private String productDescription;
     private String productImageUrl;

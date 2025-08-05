@@ -22,9 +22,9 @@ public class MemberController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<String> signin(@RequestBody SignInRequest request) {
-        memberService.signin(request);
-        return ResponseEntity.ok("로그인 성공");
+    public ResponseEntity<SignInResponse> signin(@RequestBody SignInRequest request) {
+        SignInResponse response = memberService.signin(request).getBody();
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/findId")

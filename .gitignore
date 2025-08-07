@@ -1,2 +1,2 @@
-# application.yml, application.properties 제외
-src/main/resources/application.yml
+# .gitignore
+.env

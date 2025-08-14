@@ -1,5 +1,6 @@
 package com.example.auction_market.application;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class R2Service {
 
@@ -25,19 +27,26 @@ public class R2Service {
 
     // 파일 업로드
     public String uploadFile(MultipartFile file) throws IOException {
+        log.info("Uploading file: {}", file.getOriginalFilename());
+        log.info("Bucket: {}", bucketName);
+
         String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-
-        s3Client.putObject(
-                PutObjectRequest.builder()
-                        .bucket(bucketName)
-                        .key(fileName)
-                        .contentType(file.getContentType())
-                        .build(),
-                software.amazon.awssdk.core.sync.RequestBody.fromBytes(file.getBytes())
-        );
-
-        return getFileUrl(fileName);
+        try {
+            s3Client.putObject(
+                    PutObjectRequest.builder()
+                            .bucket(bucketName)
+                            .key(fileName)
+                            .contentType(file.getContentType())
+                            .build(),
+                    software.amazon.awssdk.core.sync.RequestBody.fromBytes(file.getBytes())
+            );
+            return getFileUrl(fileName);
+        } catch (Exception e) {
+            log.error("파일 업로드 실패: {}", e.getMessage(), e);
+            throw e;
+        }
     }
+
 
     // 업로드된 파일 URL 가져오기
     public String getFileUrl(String key) {

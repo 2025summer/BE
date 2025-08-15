@@ -1,6 +1,6 @@
 package com.example.auction_market.config;
 
-import com.example.auction_market.common.token.JwtUtil;
+import com.example.auction_market.security.token.JwtUtil;
 import io.jsonwebtoken.io.IOException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

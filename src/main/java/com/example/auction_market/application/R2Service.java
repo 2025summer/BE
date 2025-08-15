@@ -27,8 +27,6 @@ public class R2Service {
 
     // 파일 업로드
     public String uploadFile(MultipartFile file) throws IOException {
-        log.info("Uploading file: {}", file.getOriginalFilename());
-        log.info("Bucket: {}", bucketName);
 
         String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
         try {
@@ -58,4 +56,5 @@ public class R2Service {
         );
         return url.toString();
     }
+
 }

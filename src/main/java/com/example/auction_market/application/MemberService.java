@@ -1,6 +1,6 @@
 package com.example.auction_market.application;
 
-import com.example.auction_market.common.token.JwtUtil;
+import com.example.auction_market.security.token.JwtUtil;
 import com.example.auction_market.domain.member.Address;
 import com.example.auction_market.domain.member.AddressRepository;
 import com.example.auction_market.domain.member.Member;

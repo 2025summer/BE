@@ -1,4 +1,4 @@
-package com.example.auction_market.common.token;
+package com.example.auction_market.security.token;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

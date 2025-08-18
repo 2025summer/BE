@@ -9,14 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignUpRequest {
-    private String username;
+public class ExistEmailRequest {
     private String email;
-    private String password;
-    private String phoneNumber;
-    private String postalCode;
-    private String address;
-    private String addressDetail;
-    private String extraAddress;
 }
-

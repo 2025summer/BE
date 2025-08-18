@@ -18,10 +18,10 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String zipCode;
+    private String postalCode;
     private String address;
-    private String detailAddress;
-    private String requestMessage;
+    private String addressDetail;
+    private String extraAddress;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

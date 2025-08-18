@@ -23,6 +23,10 @@ public class MemberService {
     private final JwtUtil jwtUtil;
     private final AddressRepository addressRepository;
 
+    public boolean existEmail(ExistEmailRequest email) {
+        return memberRepository.existsByEmail(String.valueOf(email));
+    }
+
     public void signup(SignUpRequest request) {
         if (memberRepository.existsByEmail(request.getEmail())) {
             throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
@@ -39,10 +43,10 @@ public class MemberService {
                 .build();
 
         Address address = Address.builder()
-                .member(member)
-                .zipCode(request.getZipcode())
                 .address(request.getAddress())
-                .detailAddress(request.getDetailAddress())
+                .postalCode(request.getPostalCode())
+                .extraAddress(request.getExtraAddress())
+                .addressDetail(request.getAddressDetail())
                 .build();
 
         memberRepository.save(member);

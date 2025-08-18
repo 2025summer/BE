@@ -38,5 +38,13 @@ public class MemberController {
         memberService.changePassword(request);
         return ResponseEntity.ok("비밀번호가 변경되었습니다.");
     }
+
+    @PostMapping("/existEmail")
+    public ResponseEntity<String> existEmail(@RequestBody ExistEmailRequest request) {
+        return ResponseEntity.ok(
+                memberService.existEmail(request) ? "사용 가능한 이메일입니다." : "이미 존재하는 이메일입니다."
+        );
+    }
+
 }
 

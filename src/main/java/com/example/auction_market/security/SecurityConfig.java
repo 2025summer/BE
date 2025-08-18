@@ -31,7 +31,7 @@ public class SecurityConfig {
                                 "/swagger-ui.html",
                                 "/api/members/signup",
                                 "/api/members/signin",
-                                "/api/v1/images/upload"
+                                "/api/members/existEmail"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

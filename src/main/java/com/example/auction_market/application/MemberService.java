@@ -28,10 +28,6 @@ public class MemberService {
             throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
         }
 
-        if (!request.getPassword().equals(request.getConfirmPassword())) {
-            throw new IllegalArgumentException("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-        }
-
         Member member = Member.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
@@ -57,10 +53,6 @@ public class MemberService {
         Member member = memberRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
 
-        if (!memberRepository.existsByEmail(request.getEmail())) {
-            throw new  IllegalArgumentException("존재하지 않는 이메일입니다.");
-        }
-
         if(!member.getPassword().equals(request.getPassword())) {
             throw new  IllegalArgumentException("일치하지 않는 비밀번호입니다.");
         }
@@ -70,6 +62,7 @@ public class MemberService {
                 .token(token)
                 .email(request.getEmail())
                 .role(SignInResponse.Role.USER)
+                .username(member.getUsername())
                 .build();
 
         return ResponseEntity.ok(signInResponse);

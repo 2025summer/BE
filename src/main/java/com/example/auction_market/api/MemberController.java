@@ -40,10 +40,8 @@ public class MemberController {
     }
 
     @PostMapping("/existEmail")
-    public ResponseEntity<String> existEmail(@RequestBody ExistEmailRequest request) {
-        return ResponseEntity.ok(
-                memberService.existEmail(request) ? "사용 가능한 이메일입니다." : "이미 존재하는 이메일입니다."
-        );
+    public ResponseEntity<Boolean> existEmail(@RequestBody ExistEmailRequest request) {
+        return ResponseEntity.ok(memberService.existEmail(request));
     }
 
 }

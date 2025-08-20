@@ -1,6 +1,8 @@
 package com.example.auction_market.api;
 
 import com.example.auction_market.application.ProductService;
+import com.example.auction_market.domain.product.Product;
+import com.example.auction_market.dto.productDto.ProductCategoryRequest;
 import com.example.auction_market.dto.productDto.ProductUploadRequest;
 import com.example.auction_market.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +28,7 @@ public class ProductController {
      * @param images - 업로드할 이미지 목록
      * @param userDetails - 로그인한 회원 정보
      */
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value="/uplaodProduct",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadProduct(
             @RequestPart("product") ProductUploadRequest request,
             @RequestPart("images") List<MultipartFile> images,
@@ -42,5 +44,10 @@ public class ProductController {
         productService.uploadProductWithImages(request, images, userDetails.getMember().getMemberId());
 
         return ResponseEntity.ok("상품 등록 완료");
+    }
+
+    @PostMapping("/category")
+    public ResponseEntity<List<Product>> loadCategoryProducts(@RequestBody ProductCategoryRequest request) {
+        return productService.getCategoryProducts(request);
     }
 }

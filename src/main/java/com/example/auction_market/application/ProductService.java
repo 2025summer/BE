@@ -1,6 +1,5 @@
 package com.example.auction_market.application;
 
-import com.example.auction_market.domain.auction.Auction;
 import com.example.auction_market.domain.auction.AuctionRepository;
 import com.example.auction_market.domain.bid.BidRepository;
 import com.example.auction_market.domain.member.Member;
@@ -9,13 +8,13 @@ import com.example.auction_market.domain.product.Product;
 import com.example.auction_market.domain.product.ProductImage;
 import com.example.auction_market.domain.product.ProductImageRepository;
 import com.example.auction_market.domain.product.ProductRepository;
+import com.example.auction_market.dto.productDto.ProductCategoryRequest;
 import com.example.auction_market.dto.productDto.ProductUploadRequest;
 import io.jsonwebtoken.io.IOException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
@@ -66,5 +65,9 @@ public class ProductService {
 
     }
 
+    public ResponseEntity<List<Product>> getCategoryProducts(ProductCategoryRequest request) {
+        List<Product> products = productRepository.findByCategory(request.getCategory());
+        return ResponseEntity.ok(products);
+    }
 
 }

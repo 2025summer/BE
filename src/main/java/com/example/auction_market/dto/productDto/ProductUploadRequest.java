@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 public class ProductUploadRequest {
     private String productTitle;
     private String productDescription;
-    private String productImageUrl;
     private String productCategory;
     private Long highestPrice;
     private Long buyNowPrice;

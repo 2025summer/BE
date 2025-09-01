@@ -1,12 +1,28 @@
 package com.example.auction_market.config;
 
+import com.example.auction_market.security.MultipartJackson2HttpMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.List;
+
 @Configuration
-public class WebConfig {
+public class WebConfig implements WebMvcConfigurer {
+
+    private final MultipartJackson2HttpMessageConverter multipartJackson2HttpMessageConverter;
+
+    public WebConfig(MultipartJackson2HttpMessageConverter converter) {
+        this.multipartJackson2HttpMessageConverter = converter;
+    }
+
+    @Override
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        // 최우선으로 시도되도록 0번에 추가
+        converters.add(0, multipartJackson2HttpMessageConverter);
+    }
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {

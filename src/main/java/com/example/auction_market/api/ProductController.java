@@ -5,6 +5,7 @@ import com.example.auction_market.domain.product.Product;
 import com.example.auction_market.dto.productDto.ProductCategoryRequest;
 import com.example.auction_market.dto.productDto.ProductUploadRequest;
 import com.example.auction_market.security.CustomUserDetails;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,11 +29,15 @@ public class ProductController {
      * @param images - 업로드할 이미지 목록
      * @param userDetails - 로그인한 회원 정보
      */
-    @PostMapping(value="/uplaodProduct",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(
+            value = "/uploadProduct",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<String> uploadProduct(
-            @RequestPart("product") ProductUploadRequest request,
-            @RequestPart("images") List<MultipartFile> images,
-            @AuthenticationPrincipal CustomUserDetails userDetails // 로그인한 회원 정보
+            @RequestPart("product") @Valid ProductUploadRequest request, // JSON DTO
+            @RequestPart("images") List<MultipartFile> images,          // 파일 리스트
+            @AuthenticationPrincipal CustomUserDetails userDetails
     ) throws IOException {
 
         // 로그인 여부 확인
@@ -40,11 +45,17 @@ public class ProductController {
             return ResponseEntity.status(401).body("로그인이 필요합니다.");
         }
 
+        // 디버깅용 로그
+        System.out.println("로그인 사용자: " + userDetails.getUsername());
+        System.out.println("상품명: " + request.getProductTitle());
+        System.out.println("첨부 이미지 수: " + (images != null ? images.size() : 0));
+
         // Service 호출
         productService.uploadProductWithImages(request, images, userDetails.getMember().getMemberId());
 
         return ResponseEntity.ok("상품 등록 완료");
     }
+
 
     @PostMapping("/category")
     public ResponseEntity<List<Product>> loadCategoryProducts(@RequestBody ProductCategoryRequest request) {

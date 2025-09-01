@@ -1,7 +1,7 @@
 package com.example.auction_market.config;
 
+import com.example.auction_market.security.CustomUserDetailsService;
 import com.example.auction_market.security.token.JwtUtil;
-import io.jsonwebtoken.io.IOException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,20 +9,22 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import java.util.ArrayList;
+import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
+    private final CustomUserDetailsService customUserDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-            throws ServletException, IOException, java.io.IOException {
+            throws ServletException, IOException {
 
         String authHeader = request.getHeader("Authorization");
 
@@ -32,8 +34,12 @@ public class JwtFilter extends OncePerRequestFilter {
             if (jwtUtil.validateToken(token)) {
                 String email = jwtUtil.extractEmail(token);
 
+                // DB에서 사용자 조회
+                UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
+
+                // UserDetails 기반 Authentication 생성
                 UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(email, null, new ArrayList<>());
+                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
@@ -42,4 +48,3 @@ public class JwtFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 }
-

@@ -34,6 +34,11 @@ public class ProductController {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
+    @io.swagger.v3.oas.annotations.Operation(
+            summary = "상품 업로드",
+            description = "인증이 필요하며 상품을 업로드합니다.",
+            security = {} // 이 API는 인증이 필요 없음을 명시
+    )
     public ResponseEntity<String> uploadProduct(
             @RequestPart("product") @Valid ProductUploadRequest request, // JSON DTO
             @RequestPart("images") List<MultipartFile> images,          // 파일 리스트

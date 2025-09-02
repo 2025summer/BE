@@ -1,8 +1,8 @@
 package com.example.auction_market.api;
 
 import com.example.auction_market.application.ProductService;
-import com.example.auction_market.domain.product.Product;
 import com.example.auction_market.dto.productDto.ProductCategoryRequest;
+import com.example.auction_market.dto.productDto.ProductCategoryResponse;
 import com.example.auction_market.dto.productDto.ProductUploadRequest;
 import com.example.auction_market.security.CustomUserDetails;
 import jakarta.validation.Valid;
@@ -57,8 +57,21 @@ public class ProductController {
     }
 
 
-    @PostMapping("/category")
-    public ResponseEntity<List<Product>> loadCategoryProducts(@RequestBody ProductCategoryRequest request) {
+    @GetMapping("/category")
+    @io.swagger.v3.oas.annotations.Operation(
+        summary = "카테고리별 상품 조회", 
+        description = "인증 없이 카테고리별 상품 목록을 조회합니다.",
+        security = {} // 이 API는 인증이 필요 없음을 명시
+    )
+    public ResponseEntity<List<ProductCategoryResponse>> loadCategoryProducts(
+        @io.swagger.v3.oas.annotations.Parameter(
+            description = "상품 카테고리 (대소문자 구분 없음)",
+            example = "ELECTRONICS"
+        )
+        @RequestParam String category) {
+        ProductCategoryRequest request = ProductCategoryRequest.builder()
+                .category(category)
+                .build();
         return productService.getCategoryProducts(request);
     }
 }

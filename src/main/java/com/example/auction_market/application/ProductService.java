@@ -9,6 +9,7 @@ import com.example.auction_market.domain.product.ProductImage;
 import com.example.auction_market.domain.product.ProductImageRepository;
 import com.example.auction_market.domain.product.ProductRepository;
 import com.example.auction_market.dto.productDto.ProductCategoryRequest;
+import com.example.auction_market.dto.productDto.ProductCategoryResponse;
 import com.example.auction_market.dto.productDto.ProductUploadRequest;
 import io.jsonwebtoken.io.IOException;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -56,7 +58,7 @@ public class ProductService {
             ProductImage productImage = ProductImage.builder()
                     .product(product)
                     .imageUrl(url)
-                    .isThumbnail(i == 0) // 첫 번째 이미지면 true
+                    .isThumbnail(Boolean.valueOf(i == 0)) // 첫 번째 이미지면 true
                     .createdAt(LocalDateTime.now())
                     .build();
 
@@ -65,9 +67,23 @@ public class ProductService {
 
     }
 
-    public ResponseEntity<List<Product>> getCategoryProducts(ProductCategoryRequest request) {
-        List<Product> products = productRepository.findByCategory(request.getCategory());
-        return ResponseEntity.ok(products);
+    public ResponseEntity<List<ProductCategoryResponse>> getCategoryProducts(ProductCategoryRequest request) {
+        try {
+            // String을 ENUM으로 변환
+            Product.Category category = Product.Category.valueOf(request.getCategory().toUpperCase());
+            List<Product> products = productRepository.findByCategory(category);
+            
+            // Product 엔티티를 DTO로 변환
+            List<ProductCategoryResponse> responseList = products.stream()
+                    .map(ProductCategoryResponse::fromEntity)
+                    .collect(Collectors.toList());
+                    
+            return ResponseEntity.ok(responseList);
+        } catch (IllegalArgumentException e) {
+            // 잘못된 카테고리 값인 경우
+            System.err.println("잘못된 카테고리: " + request.getCategory());
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }

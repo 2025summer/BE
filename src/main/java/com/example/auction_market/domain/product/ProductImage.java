@@ -1,5 +1,6 @@
 package com.example.auction_market.domain.product;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,10 +20,13 @@ public class ProductImage {
 
     private String imageUrl;
 
-    private Boolean isThumbnail;
+    @Column(name = "is_thumbnail", nullable = false)
+    @Builder.Default
+    private boolean isThumbnail = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
+    @JsonBackReference
     private Product product;
 
     private LocalDateTime createdAt;

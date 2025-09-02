@@ -1,6 +1,7 @@
 package com.example.auction_market.domain.product;
 
 import com.example.auction_market.domain.member.Member;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -45,6 +46,7 @@ public class Product {
     private Member highestBidder;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<ProductImage> images = new ArrayList<>();
 
     public enum Category {

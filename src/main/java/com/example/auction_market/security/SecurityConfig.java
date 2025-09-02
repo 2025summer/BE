@@ -39,7 +39,7 @@ public class SecurityConfig {
                                 "/api/members/existEmail",
                                 "/api/members/changePassword",
                                 "/api/members/findId",
-                                "/api/product/category"
+                                "/api/product/category" // GET 방식으로 변경
                         ).permitAll()
                         // 👉 uploadProduct는 permitAll에서 제거 (로그인 필수)
                         .anyRequest().authenticated()

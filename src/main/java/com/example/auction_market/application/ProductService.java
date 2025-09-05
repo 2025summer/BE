@@ -1,7 +1,5 @@
 package com.example.auction_market.application;
 
-import com.example.auction_market.domain.auction.AuctionRepository;
-import com.example.auction_market.domain.bid.BidRepository;
 import com.example.auction_market.domain.member.Member;
 import com.example.auction_market.domain.member.MemberRepository;
 import com.example.auction_market.domain.product.Product;
@@ -28,11 +26,10 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final BidRepository bidRepository;
-    private final AuctionRepository auctionRepository;
     private final MemberRepository memberRepository;
     private final R2Service r2Service;
     private final ProductImageRepository productImageRepository;
+    private final AuctionService auctionService;
 
     public void uploadProductWithImages(ProductUploadRequest request, List<MultipartFile> images, Long memberId) throws IOException, java.io.IOException {
         // 1. 상품 저장
@@ -44,7 +41,7 @@ public class ProductService {
                 .category(Product.Category.valueOf(request.getProductCategory().toUpperCase()))
                 .title(request.getProductTitle())
                 .description(request.getProductDescription())
-                .highestPrice(request.getHighestPrice())
+                .highestPrice(request.getStartPrice()) // 시작가로 초기화
                 .buyNowPrice(request.getBuyNowPrice())
                 .bidCount(0)
                 .build();
@@ -65,6 +62,8 @@ public class ProductService {
             productImageRepository.save(productImage);
         }
 
+        // 3. 자동으로 경매 생성
+        auctionService.createAuction(product, request.getStartPrice(), request.getAuctionEndTime());
     }
 
     public ResponseEntity<List<ProductCategoryResponse>> getCategoryProducts(ProductCategoryRequest request) {

@@ -6,6 +6,7 @@ import com.example.auction_market.domain.product.Product;
 import com.example.auction_market.domain.product.ProductImage;
 import com.example.auction_market.domain.product.ProductImageRepository;
 import com.example.auction_market.domain.product.ProductRepository;
+import com.example.auction_market.domain.wishlist.WishlistRepository;
 import com.example.auction_market.dto.productDto.ProductCategoryRequest;
 import com.example.auction_market.dto.productDto.ProductCategoryResponse;
 import com.example.auction_market.dto.productDto.ProductUploadRequest;
@@ -30,6 +31,7 @@ public class ProductService {
     private final R2Service r2Service;
     private final ProductImageRepository productImageRepository;
     private final AuctionService auctionService;
+    private final WishlistRepository wishlistRepository;
 
     public void uploadProductWithImages(ProductUploadRequest request, List<MultipartFile> images, Long memberId) throws IOException, java.io.IOException {
         // 1. 상품 저장
@@ -72,9 +74,12 @@ public class ProductService {
             Product.Category category = Product.Category.valueOf(request.getCategory().toUpperCase());
             List<Product> products = productRepository.findByCategory(category);
             
-            // Product 엔티티를 DTO로 변환
+            // Product 엔티티를 DTO로 변환 (찜 개수 포함)
             List<ProductCategoryResponse> responseList = products.stream()
-                    .map(ProductCategoryResponse::fromEntity)
+                    .map(product -> {
+                        long wishCount = wishlistRepository.countByProduct(product);
+                        return ProductCategoryResponse.fromEntity(product, wishCount, false);
+                    })
                     .collect(Collectors.toList());
                     
             return ResponseEntity.ok(responseList);

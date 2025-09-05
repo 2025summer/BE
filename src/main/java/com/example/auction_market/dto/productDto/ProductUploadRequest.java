@@ -24,11 +24,11 @@ public class ProductUploadRequest {
     private String productCategory;
 
     @Schema(description = "경매 시작가", example = "1000000")
-    private Long highestPrice;
+    private Long startPrice;
 
     @Schema(description = "즉시 구매가", example = "1200000")
     private Long buyNowPrice;
 
     @Schema(description = "경매 종료 시간", example = "2025-12-01T12:00:00")
-    private LocalDateTime endDate;
+    private LocalDateTime auctionEndTime;
 }

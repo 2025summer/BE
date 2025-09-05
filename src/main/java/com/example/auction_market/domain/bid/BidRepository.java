@@ -5,7 +5,6 @@ import com.example.auction_market.domain.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface BidRepository extends JpaRepository<Bid, Long> {
 
@@ -17,4 +16,7 @@ public interface BidRepository extends JpaRepository<Bid, Long> {
 
     // 특정 사용자가 한 모든 입찰 조회
     List<Bid> findByBidder(Member bidder);
+    
+    // 특정 사용자가 한 모든 입찰 조회 (시간 내림차순)
+    List<Bid> findByBidderOrderByBidTimeDesc(Member bidder);
 }

@@ -18,6 +18,7 @@ public class ProductImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long imageId;
 
+    @Column(length = 1000) // URL 길이를 1000자로 확장
     private String imageUrl;
 
     @Column(name = "is_thumbnail", nullable = false)

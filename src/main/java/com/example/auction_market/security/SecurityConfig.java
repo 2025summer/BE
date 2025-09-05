@@ -42,7 +42,8 @@ public class SecurityConfig {
                                 "/api/product/category",
                                 "/api/auctions/ongoing",
                                 "/api/auctions/{auctionId}",
-                                "/api/bids/auction/{auctionId}"
+                                "/api/bids/auction/{auctionId}",
+                                "/api/wishlist/count/{productId}"
                         ).permitAll()
                         // 👉 uploadProduct는 permitAll에서 제거 (로그인 필수)
                         .anyRequest().authenticated()

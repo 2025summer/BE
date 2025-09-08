@@ -1,5 +1,6 @@
 package com.example.auction_market.dto.memberDto;
 
+import com.example.auction_market.domain.member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,4 +20,12 @@ public class SignInResponse {
         USER, ADMIN
     }
 
+    public static SignInResponse fromEntity(Member member, String token) {
+        return SignInResponse.builder()
+                .token(token)
+                .username(member.getUsername())
+                .email(member.getEmail())
+                .role(Role.valueOf(member.getRole().name()))
+                .build();
+    }
 }

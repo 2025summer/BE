@@ -62,12 +62,7 @@ public class MemberService {
         }
 
         String token = jwtUtil.generateToken(member.getEmail(), member.getRole().name());
-        SignInResponse signInResponse = SignInResponse.builder()
-                .token(token)
-                .email(request.getEmail())
-                .role(SignInResponse.Role.USER)
-                .username(member.getUsername())
-                .build();
+        SignInResponse signInResponse = SignInResponse.fromEntity(member, token);
 
         return ResponseEntity.ok(signInResponse);
     }
@@ -75,11 +70,7 @@ public class MemberService {
     public FindIdResponse findId(FindIdRequest request) {
         Member member = memberRepository.findByUsernameAndPhoneNumber(request.getName(), request.getPhoneNumber());
 
-        FindIdResponse findIdResponse = FindIdResponse.builder()
-                .email(member.getEmail())
-                .build();
-
-        return findIdResponse;
+        return FindIdResponse.fromEntity(member);
     }
 
     public void changePassword(ChangePasswordRequest request) {
